@@ -3,19 +3,16 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/cyverse-de/condor-launcher"
-  packages = ["test"]
-  revision = "d52ec0e2b604aa78d3acca2c5f766d7e5955ff75"
-
-[[projects]]
   name = "github.com/cyverse-de/configurate"
   packages = ["."]
-  revision = "b0d68464a86566bf0245e3718a7f60effecc5efb"
-  version = "0.1"
+  revision = "c595102a4541f21108b7b8fe6a3d9858aaab79c7"
 
 [[projects]]
   name = "github.com/cyverse-de/model"
-  packages = ["submitfile"]
+  packages = [
+    ".",
+    "submitfile"
+  ]
   revision = "d3df3e533f048ecc78a41e1c5a42e2297ab4861b"
   version = "v2.4"
 
@@ -53,12 +50,6 @@
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
-
-[[projects]]
-  branch = "master"
-  name = "github.com/olebedev/config"
-  packages = ["."]
-  revision = "9a10d05a33a8b9e828f20491e21e8927dec35f72"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
@@ -125,12 +116,6 @@
   version = "v0.3.0"
 
 [[projects]]
-  name = "gopkg.in/cyverse-de/model.v1"
-  packages = ["."]
-  revision = "3b06c9e9e248fcd8bcb1b660b3047908cb91c1ba"
-  version = "v1.1"
-
-[[projects]]
   name = "gopkg.in/cyverse-de/model.v2"
   packages = ["."]
   revision = "d3df3e533f048ecc78a41e1c5a42e2297ab4861b"
@@ -145,6 +130,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "578b8153a6255c251d5bd5ac274b747f25f594c17efd0749765f4d82cc6c10b7"
+  inputs-digest = "d5c01607d3700c03e3f094f9cafc26371763eaa719bb1122a9d3f9fa847425af"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -24,10 +24,9 @@
 #   go-tests = true
 #   unused-packages = true
 
-
 [[constraint]]
+  name = "github.com/cyverse-de/configurate"
   branch = "master"
-  name = "github.com/cyverse-de/condor-launcher"
 
 [[constraint]]
   name = "github.com/pkg/errors"
