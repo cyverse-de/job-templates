@@ -1,8 +1,9 @@
 package jobs
 
 import (
-	"text/template"
 	"log"
+	"text/template"
+
 	"github.com/pkg/errors"
 )
 
