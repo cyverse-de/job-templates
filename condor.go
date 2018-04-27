@@ -54,24 +54,6 @@ func (b CondorJobSubmissionBuilder) Build(submission *model.Job, dirPath string)
 	return submitFilePath, nil
 }
 
-func generateOutputTicketList(dirPath string, submission TemplatesModel) (string, error) {
-	if submission.OutputDirTicket != "" {
-		// Generate the output ticket path list file.
-		return generateFile(dirPath, "output_ticket.list", outputTicketListTemplate, submission)
-	}
-
-	return "", nil
-}
-
-func generateInputTicketList(dirPath string, submission TemplatesModel) (string, error) {
-	if len(submission.FilterInputsWithTickets()) > 0 {
-		// Generate the input tickets path list file.
-		return generateFile(dirPath, "input_ticket.list", inputTicketListTemplate, submission)
-	}
-
-	return "", nil
-}
-
 func newCondorJobSubmissionBuilder(cfg *viper.Viper) JobSubmissionBuilder {
 	return CondorJobSubmissionBuilder{cfg: cfg}
 }

@@ -13,6 +13,23 @@ type OSGJobSubmissionBuilder struct {
 
 // Build is where the the files are actually written out for submissions to OSG.
 func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (string, error) {
+	var err error
+
+	templateFields := OtherTemplateFields{TicketPathListHeader: b.cfg.GetString("tickets_path_list.file_identifier")}
+	templateModel := TemplatesModel{
+		submission,
+		templateFields,
+	}
+
+	submission.OutputTicketFile, err = generateOutputTicketList(dirPath, templateModel)
+	if err != nil {
+		return "", err
+	}
+
+	submission.InputTicketsFile, err = generateInputTicketList(dirPath, templateModel)
+	if err != nil {
+		return "", err
+	}
 
 	// Generate the submission file.
 	submitFilePath, err := generateFile(dirPath, "iplant.cmd", osgSubmissionTemplate, submission)
