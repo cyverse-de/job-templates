@@ -11,7 +11,36 @@ type OSGJobSubmissionBuilder struct {
 	cfg *viper.Viper
 }
 
-// Build is where the the files are actually written out for submissions to OSG.
+// OSGJobConfig stores configuration settings used by the tool wrapper script in the Singularity container.
+type OSGJobConfig struct {
+	IrodsHost        string `json:"irods_host"`
+	IrodsPort        int    `json:"irods_port"`
+	IrodsJobUser     string `json:"irods_job_user"`
+	InputTicketList  string `json:"input_ticket_list"`
+	OutputTicketList string `json:"output_ticket_list"`
+	StatusUpdateUrl  string `json:"status_update_url"`
+	Stdout           string `json:"stdout"`
+	Stderr           string `json:"stderr"`
+}
+
+// generateConfigJson generates the config.json file which will be used by the wrapper script.
+func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPath string) (string, error) {
+
+	osgJobConfig := OSGJobConfig{
+		IrodsHost:        b.cfg.GetString("external_irods.host"),
+		IrodsPort:        b.cfg.GetInt("external_irods.port"),
+		IrodsJobUser:     submission.Submitter,
+		InputTicketList:  submission.InputTicketsFile,
+		OutputTicketList: submission.OutputTicketFile,
+		StatusUpdateUrl:  b.cfg.GetString("status_listener.url"),
+		Stdout:           "out.txt",
+		Stderr:           "err.txt",
+	}
+
+	return generateJson(dirPath, "config.json", osgJobConfig)
+}
+
+// Build is where the files are actually written out for submissions to OSG.
 func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (string, error) {
 	var err error
 
@@ -27,6 +56,11 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 	}
 
 	submission.InputTicketsFile, err = generateInputTicketList(dirPath, templateModel)
+	if err != nil {
+		return "", err
+	}
+
+	_, err = b.generateConfigJson(submission, dirPath)
 	if err != nil {
 		return "", err
 	}
