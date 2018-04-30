@@ -22,6 +22,10 @@ manager:
 monitor:
   event_log: /path/to/event/log
 
+external_irods:
+  host: wut.iplantc.org
+  port: "1247"
+
 irods:
   base: /iplant/home
   user: wut
@@ -44,3 +48,6 @@ condor:
   batch_group: batch_processing
   condor_config: /etc/condor/condor_config
   path_env_var: /usr/bin/:/usr/local/bin/:/bin/
+
+status_listener:
+  url: http://sl.iplantc.org
