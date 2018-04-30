@@ -44,8 +44,8 @@ var (
 const condorSubmissionTemplateText =
 `universe = vanilla
 executable = /usr/local/bin/road-runner
-rank = mips{{ if .UsesVolumes }}
-requirements = (HAS_HOST_MOUNTS == True){{ end }}
+rank = mips
+requirements = (HAS_CYVERSE_ROAD_RUNNER =?= True){{ if .UsesVolumes }} && (HAS_HOST_MOUNTS =?= True){{ end }}
 arguments = --config config --job job
 output = script-output.log
 error = script-error.log
