@@ -63,7 +63,7 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 		return "", err
 	}
 
-	_, err = b.generateConfigJson(submission, dirPath)
+	submission.ConfigFile, err = b.generateConfigJson(submission, dirPath)
 	if err != nil {
 		return "", err
 	}

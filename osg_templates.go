@@ -31,7 +31,7 @@ log = condor.log
 
 should_transfer_files = YES
 transfer_executable = False
-transfer_input_files = iplant.cmd,config.json{{if .OutputTicketFile}},{{.OutputTicketFile}}{{end}}{{if .InputTicketsFile}},{{.InputTicketsFile}}{{end}}
+transfer_input_files = iplant.cmd{{if .ConfigFile}},{{.ConfigFile}}{{end}}{{if .OutputTicketFile}},{{.OutputTicketFile}}{{end}}{{if .InputTicketsFile}},{{.InputTicketsFile}}{{end}}
 when_to_transfer_output = NEVER
 notification = NEVER
 

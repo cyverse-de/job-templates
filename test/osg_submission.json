@@ -95,5 +95,6 @@
   ],
   "app_name": "OSG Word Count Test",
   "inputs_ticket_list": "input_ticket.list",
-  "output_ticket_list": "output_ticket.list"
+  "output_ticket_list": "output_ticket.list",
+  "config_file": "config.json"
 }
