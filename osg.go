@@ -23,10 +23,10 @@ type OSGJobConfig struct {
 	Stderr           string `json:"stderr"`
 }
 
-// generateConfigJson generates the config.json file which will be used by the wrapper script.
-func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPath string) (string, error) {
-
-	osgJobConfig := OSGJobConfig{
+// generateConfig builds the configuration structure without marshaling it. The primary reason this function
+// exists is to make testing easier.
+func (b OSGJobSubmissionBuilder) generateConfig(submission *model.Job) *OSGJobConfig {
+	return &OSGJobConfig{
 		IrodsHost:        b.cfg.GetString("external_irods.host"),
 		IrodsPort:        b.cfg.GetInt("external_irods.port"),
 		IrodsJobUser:     submission.Submitter,
@@ -36,8 +36,11 @@ func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPa
 		Stdout:           "out.txt",
 		Stderr:           "err.txt",
 	}
+}
 
-	return generateJson(dirPath, "config.json", osgJobConfig)
+// generateConfigJson generates the config.json file which will be used by the wrapper script.
+func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPath string) (string, error) {
+	return generateJson(dirPath, "config.json", b.generateConfig(submission))
 }
 
 // Build is where the files are actually written out for submissions to OSG.
@@ -74,6 +77,6 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 	return submitFilePath, nil
 }
 
-func newOSGJobSubmissionBuilder(cfg *viper.Viper) JobSubmissionBuilder {
+func newOSGJobSubmissionBuilder(cfg *viper.Viper) OSGJobSubmissionBuilder {
 	return OSGJobSubmissionBuilder{cfg: cfg}
 }
