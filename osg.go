@@ -65,7 +65,7 @@ func (b OSGJobSubmissionBuilder) generateConfig(submission *model.Job) *OSGJobCo
 
 // generateConfigJSON generates the config.json file which will be used by the wrapper script.
 func (b OSGJobSubmissionBuilder) generateConfigJSON(submission *model.Job, dirPath string) (string, error) {
-	return generateJson(dirPath, "config.json", b.generateConfig(submission))
+	return generateJSON(dirPath, "config.json", b.generateConfig(submission))
 }
 
 // Build is where the files are actually written out for submissions to OSG.
@@ -112,7 +112,7 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 	}
 
 	// Generate the job JSON file for debugging purposes.
-	_, err = generateJson(dirPath, "job", submission)
+	_, err = generateJSON(dirPath, "job", submission)
 	if err != nil {
 		return "", err
 	}

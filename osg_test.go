@@ -9,7 +9,7 @@ func runOSGConfigTest(t *testing.T, submissionPath, expected string) {
 	s := InitTestsFromFile(t, cfg, submissionPath)
 	b := newOSGJobSubmissionBuilder(cfg)
 
-	actual, err := generateJsonContents(b.generateConfig(s))
+	actual, err := generateJSONContents(b.generateConfig(s))
 	if err != nil {
 		t.Error(err)
 	}
@@ -37,7 +37,7 @@ func TestGenerateOSGConfigJSONFile(t *testing.T) {
 	runOSGConfigTest(t, "osg_submission.json", expected)
 }
 
-func TestGeneratedOSGConfigJsonFileArgs(t *testing.T) {
+func TestGeneratedOSGConfigJSONFileArgs(t *testing.T) {
 	expected := `{
     "arguments": [
         "-b"
