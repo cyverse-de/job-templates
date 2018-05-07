@@ -25,6 +25,7 @@ monitor:
 external_irods:
   host: wut.iplantc.org
   port: "1247"
+  user: "iuser"
 
 irods:
   base: /iplant/home
