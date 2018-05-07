@@ -23,14 +23,14 @@ type OSGJobConfig struct {
 	IrodsUsername    string   `json:"irods_user"`
 	InputTicketList  string   `json:"input_ticket_list"`
 	OutputTicketList string   `json:"output_ticket_list"`
-	StatusUpdateUrl  string   `json:"status_update_url"`
+	StatusUpdateURL  string   `json:"status_update_url"`
 	Stdout           string   `json:"stdout"`
 	Stderr           string   `json:"stderr"`
 }
 
-// generateJobStatusUpdateUrl builds the URL that the job can use to notify the user when
+// generateJobStatusUpdateURL builds the URL that the job can use to notify the user when
 // the job status has changed.
-func (b OSGJobSubmissionBuilder) generateJobStatusUpdateUrl(submission *model.Job) string {
+func (b OSGJobSubmissionBuilder) generateJobStatusUpdateURL(submission *model.Job) string {
 	return b.cfg.GetString("status_listener.url") +
 		"/" + url.PathEscape(submission.InvocationID) +
 		"/status"
@@ -57,14 +57,14 @@ func (b OSGJobSubmissionBuilder) generateConfig(submission *model.Job) *OSGJobCo
 		IrodsUsername:    b.cfg.GetString("external_irods.user"),
 		InputTicketList:  submission.InputTicketsFile,
 		OutputTicketList: submission.OutputTicketFile,
-		StatusUpdateUrl:  b.generateJobStatusUpdateUrl(submission),
+		StatusUpdateURL:  b.generateJobStatusUpdateURL(submission),
 		Stdout:           "out.txt",
 		Stderr:           "err.txt",
 	}
 }
 
-// generateConfigJson generates the config.json file which will be used by the wrapper script.
-func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPath string) (string, error) {
+// generateConfigJSON generates the config.json file which will be used by the wrapper script.
+func (b OSGJobSubmissionBuilder) generateConfigJSON(submission *model.Job, dirPath string) (string, error) {
 	return generateJson(dirPath, "config.json", b.generateConfig(submission))
 }
 
@@ -99,7 +99,7 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 	submission.InputTicketsFile = filepath.Base(inputTicketFile)
 
 	// Generate the job configuration file.
-	configFile, err := b.generateConfigJson(submission, dirPath)
+	configFile, err := b.generateConfigJSON(submission, dirPath)
 	if err != nil {
 		return "", err
 	}
