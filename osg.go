@@ -89,6 +89,12 @@ func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (s
 		return "", err
 	}
 
+	// Generate the job JSON file for debugging purposes.
+	_, err = generateJson(dirPath, "job", submission)
+	if err != nil {
+		return "", err
+	}
+
 	return submitFilePath, nil
 }
 
