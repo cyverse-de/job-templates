@@ -55,24 +55,28 @@ func (b OSGJobSubmissionBuilder) generateConfigJson(submission *model.Job, dirPa
 func (b OSGJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (string, error) {
 	var err error
 
+	// Build the template model for the input and output ticket lists.
 	templateFields := OtherTemplateFields{TicketPathListHeader: b.cfg.GetString("tickets_path_list.file_identifier")}
 	templateModel := TemplatesModel{
 		submission,
 		templateFields,
 	}
 
+	// Generate the list of output tickets.
 	outputTicketFile, err := generateOutputTicketList(dirPath, templateModel)
 	if err != nil {
 		return "", err
 	}
 	submission.OutputTicketFile = filepath.Base(outputTicketFile)
 
+	// Generate the list of input tickets.
 	inputTicketFile, err := generateInputTicketList(dirPath, templateModel)
 	if err != nil {
 		return "", err
 	}
 	submission.InputTicketsFile = filepath.Base(inputTicketFile)
 
+	// Generate the job configuration file.
 	configFile, err := b.generateConfigJson(submission, dirPath)
 	if err != nil {
 		return "", err
