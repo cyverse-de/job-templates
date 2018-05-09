@@ -17,7 +17,10 @@ type CondorJobSubmissionBuilder struct {
 func (b CondorJobSubmissionBuilder) Build(submission *model.Job, dirPath string) (string, error) {
 	var err error
 
-	templateFields := OtherTemplateFields{TicketPathListHeader: b.cfg.GetString("tickets_path_list.file_identifier")}
+	templateFields := OtherTemplateFields{
+		PathListHeader: b.cfg.GetString("path_list.file_identifier"),
+		TicketPathListHeader: b.cfg.GetString("tickets_path_list.file_identifier"),
+	}
 	templateModel := TemplatesModel{
 		submission,
 		templateFields,
@@ -29,6 +32,11 @@ func (b CondorJobSubmissionBuilder) Build(submission *model.Job, dirPath string)
 	}
 
 	submission.InputTicketsFile, err = generateInputTicketList(dirPath, templateModel)
+	if err != nil {
+		return "", err
+	}
+
+	submission.InputPathListFile, err = generateInputPathList(dirPath, templateModel)
 	if err != nil {
 		return "", err
 	}
@@ -52,6 +60,15 @@ func (b CondorJobSubmissionBuilder) Build(submission *model.Job, dirPath string)
 	}
 
 	return submitFilePath, nil
+}
+
+func generateInputPathList(dirPath string, submission TemplatesModel) (string, error) {
+	if len(submission.FilterInputsWithoutTickets()) > 0 {
+		// Generate the input path list file.
+		return generateFile(dirPath, "input_path.list", inputPathListTemplate, submission)
+	}
+
+	return "", nil
 }
 
 func newCondorJobSubmissionBuilder(cfg *viper.Viper) JobSubmissionBuilder {
