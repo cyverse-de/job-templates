@@ -37,5 +37,5 @@
   unused-packages = true
 
 [[constraint]]
-  name = "gopkg.in/cyverse-de/model.v2"
-  version = "2.11.0"
+  name = "gopkg.in/cyverse-de/model.v3"
+  version = "3.0.0"

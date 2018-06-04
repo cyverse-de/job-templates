@@ -11,7 +11,7 @@ import (
 
 	"github.com/cyverse-de/configurate"
 	"github.com/spf13/viper"
-	"gopkg.in/cyverse-de/model.v2"
+	"gopkg.in/cyverse-de/model.v3"
 )
 
 func getTestConfigDir(t *testing.T) string {

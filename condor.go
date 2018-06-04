@@ -1,9 +1,10 @@
 package jobs
 
 import (
-	"github.com/spf13/viper"
-	"gopkg.in/cyverse-de/model.v2"
 	"path/filepath"
+
+	"github.com/spf13/viper"
+	"gopkg.in/cyverse-de/model.v3"
 )
 
 // CondorJobSubmissionBuilder is responsible for writing out the iplant.cmd,
@@ -19,7 +20,7 @@ func (b CondorJobSubmissionBuilder) Build(submission *model.Job, dirPath string)
 	var err error
 
 	templateFields := OtherTemplateFields{
-		PathListHeader: b.cfg.GetString("path_list.file_identifier"),
+		PathListHeader:       b.cfg.GetString("path_list.file_identifier"),
 		TicketPathListHeader: b.cfg.GetString("tickets_path_list.file_identifier"),
 	}
 	templateModel := TemplatesModel{
