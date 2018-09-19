@@ -176,7 +176,10 @@ k8s:
     get-analysis-id:
         header: {{.GetString "k8s.get-analysis-id.header"}}`
 
+// bytesPerKiB is 2^10
 const bytesPerKiB = 1024
+
+// bytesPerMiB is 2^20
 const bytesPerMiB = 1048576
 
 // CondorBytes formats a number of bytes to a condor format (rounding up to the nearest KiB until it's at least 1MiB, then rounding up to the nearest MiB)
