@@ -107,7 +107,7 @@ func TestGenerateCondorSubmit(t *testing.T) {
 	expected := `universe = vanilla
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
-requirements = (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
+requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
 request_cpus = 4.5
 request_memory = 2048MB
 request_disk = 2048MB
@@ -147,7 +147,7 @@ func TestGenerateCondorSubmitGroup(t *testing.T) {
 	expected := `universe = vanilla
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
-requirements = (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
+requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
 request_cpus = 4.5
 request_memory = 2048MB
 request_disk = 2048MB
@@ -186,7 +186,7 @@ func TestGenerateCondorSubmitNoVolumes(t *testing.T) {
 	expected := `universe = vanilla
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
-requirements = (HAS_CYVERSE_ROAD_RUNNER =?= True)
+requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True)
 request_memory = 2KB
 arguments = --config config --job job
 output = script-output.log
