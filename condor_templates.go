@@ -176,22 +176,25 @@ k8s:
     get-analysis-id:
         header: {{.GetString "k8s.get-analysis-id.header"}}`
 
+const bytesPerKiB = 1024
+const bytesPerMiB = 1048576
+
 // CondorBytes formats a number of bytes to a condor format (rounding up to the nearest KiB until it's at least 1MiB, then rounding up to the nearest MiB)
 func CondorBytes(bytes int64) string {
-	if bytes < 1024 {
+	if bytes < bytesPerKiB {
 		return "1KB"
 	}
 
-	if bytes < 1048576 {
-		kb := bytes / 1024
-		if bytes%1024 > 0 {
+	if bytes < bytesPerMiB {
+		kb := bytes / bytesPerKiB
+		if bytes%bytesPerKiB > 0 {
 			kb = kb + 1
 		}
 		return fmt.Sprintf("%dKB", kb)
 	}
 
-	mb := bytes / 1048576
-	if bytes%1048576 > 0 {
+	mb := bytes / bytesPerMiB
+	if bytes%bytesPerMiB > 0 {
 		mb = mb + 1
 	}
 
