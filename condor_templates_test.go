@@ -100,10 +100,6 @@ func TestGenerateCondorSubmit(t *testing.T) {
 	cfg := InitConfig(t)
 	s := InitTests(t, cfg)
 
-	_ = s.MemoryRequest()
-	_ = s.CPURequest()
-	_ = s.DiskRequest()
-
 	actual, err := generateFileContents(condorSubmissionTemplate, s)
 	if err != nil {
 		t.Error(err)
