@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
-	"gopkg.in/cyverse-de/model.v5"
+	"github.com/cyverse-de/model"
 )
 
 // ExcludesFileContents returns a *bytes.Buffer containing the contents of an

@@ -5,8 +5,8 @@ import (
 	"log"
 	"text/template"
 
+	"github.com/cyverse-de/model"
 	"github.com/pkg/errors"
-	"gopkg.in/cyverse-de/model.v5"
 )
 
 type OtherTemplateFields struct {

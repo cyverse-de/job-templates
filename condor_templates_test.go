@@ -10,8 +10,8 @@ import (
 	"testing"
 
 	"github.com/cyverse-de/configurate"
+	"github.com/cyverse-de/model"
 	"github.com/spf13/viper"
-	"gopkg.in/cyverse-de/model.v5"
 )
 
 func getTestConfigDir(t *testing.T) string {
@@ -100,6 +100,10 @@ func TestGenerateCondorSubmit(t *testing.T) {
 	cfg := InitConfig(t)
 	s := InitTests(t, cfg)
 
+	_ = s.MemoryRequest()
+	_ = s.CPURequest()
+	_ = s.DiskRequest()
+
 	actual, err := generateFileContents(condorSubmissionTemplate, s)
 	if err != nil {
 		t.Error(err)
@@ -108,8 +112,6 @@ func TestGenerateCondorSubmit(t *testing.T) {
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
 requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
-request_cpus = 4.5
-request_memory = 2048MB
 request_disk = 2048MB
 arguments = --config config --job job
 output = script-output.log
@@ -148,8 +150,6 @@ func TestGenerateCondorSubmitExtraRequirements(t *testing.T) {
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
 requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True) && (TRUE)
-request_cpus = 4.5
-request_memory = 2048MB
 request_disk = 2048MB
 arguments = --config config --job job
 output = script-output.log
@@ -188,8 +188,6 @@ func TestGenerateCondorSubmitGroup(t *testing.T) {
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
 requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True) && (HAS_HOST_MOUNTS =?= True)
-request_cpus = 4.5
-request_memory = 2048MB
 request_disk = 2048MB
 arguments = --config config --job job
 output = script-output.log
@@ -227,7 +225,6 @@ func TestGenerateCondorSubmitNoVolumes(t *testing.T) {
 executable = /usr/local/bin/road-runner
 rank = 100 - TotalLoadAvg
 requirements = HasDocker && (HAS_CYVERSE_ROAD_RUNNER =?= True)
-request_memory = 2KB
 arguments = --config config --job job
 output = script-output.log
 error = script-error.log

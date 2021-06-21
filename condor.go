@@ -3,8 +3,8 @@ package jobs
 import (
 	"path/filepath"
 
+	"github.com/cyverse-de/model"
 	"github.com/spf13/viper"
-	"gopkg.in/cyverse-de/model.v5"
 )
 
 // CondorJobSubmissionBuilder is responsible for writing out the iplant.cmd,

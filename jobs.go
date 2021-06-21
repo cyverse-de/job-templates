@@ -3,8 +3,8 @@ package jobs
 import (
 	"fmt"
 
+	"github.com/cyverse-de/model"
 	"github.com/spf13/viper"
-	"gopkg.in/cyverse-de/model.v5"
 )
 
 // JobSubmissionBuilder is an interface for generating Condor job submissions.
